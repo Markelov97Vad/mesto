@@ -1,0 +1,28 @@
+.profile__edit-button {
+  background: url(../../../images/pencil.svg) no-repeat;
+  background-size: 10px 10px;
+  cursor: pointer;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #fff;
+  grid-area: button;
+  margin-bottom: 8px;
+}
+
+@media screen and (max-width: 519px) {
+  .profile__edit-button {
+    background-size: 7.5px 7.5px;
+    width: 18px;
+    height: 18px;
+
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__edit-button {
+    margin-bottom: 0;
+    
+
+  }
+}
