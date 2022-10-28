@@ -2,3 +2,10 @@
   margin: 0 auto;
   padding-bottom: 67px;
 }
+
+@media screen and (max-width: 920px) {
+  .content__elements {
+    margin-left: 19px;
+    margin-right: 19px;
+  }
+}

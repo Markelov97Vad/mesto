@@ -14,3 +14,9 @@
     gap: 32px;
   }
 }
+
+@media screen and (max-width: 519px) {
+  .content__profile {
+    margin-bottom: 36px;
+  }
+}
