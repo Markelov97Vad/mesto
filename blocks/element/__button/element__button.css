@@ -14,5 +14,5 @@
 }
 
 .element__button:active {
-  background: url(../../../images/heart-active.svg)
+  background: url(../../../images/heart-active.svg);
 }
