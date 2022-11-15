@@ -30,7 +30,7 @@
     </section>
 
     <section class="elements content__elements">
-      <article class="element">
+      <!-- <article class="element">
         <button class="element__delete-button" type="button" aria-label="delete card"></button>
         <img src="./images/image-card1.jpeg" alt="Рисовые террасы в Му Кан Чай" class="element__image">
         <div class="element__info">
@@ -77,7 +77,7 @@
           <h2 class="element__title">Мачу-Пикчу</h2>
           <button type="button" class="element__button" aria-label="mark like"></button>
         </div>
-      </article>
+      </article> -->
 
     </section>
   </main>
@@ -128,7 +128,18 @@
     </div>
   </div>
 
+  <template id="cardTemplate">
+    <article class="element">
+      <button class="element__delete-button" type="button" aria-label="delete card"></button>
+      <img src="" alt="Рисовые террасы в Му Кан Чай" class="element__image">
+      <div class="element__info">
+        <h2 class="element__title"></h2>
+        <button type="button" class="element__button" aria-label="mark like"></button>
+      </div>
+    </article>
+  </template>
   <script src="./script/index.js"></script>
+
 </body>
 
 </html>
