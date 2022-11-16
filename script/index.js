@@ -22,12 +22,16 @@ const popupImage = document.querySelector('.popup_theme_figure');
 const imagePopup = popupImage.querySelector('.popup__image');
 const textImgPopup = popupImage.querySelector('.popup__figcap')
 
+const popupElem = document.querySelectorAll('.popup')[2];
+
+
 
 // карточки
 const initialCards = [
   {
     name: 'Му Кан Чай',
     link: './images/image-card1.jpeg'
+
   },
   {
     name: 'Багана',
@@ -70,6 +74,15 @@ const likeHandlCard = evt => {
   evt.target.closest('.element__button').classList.toggle('element__button_active');
 };
 
+// событие (закрывает попап кликом по бэку)
+
+const closeHendlPop = evt => {
+  if(evt.target === evt.currentTarget) {
+    popupElem.classList.remove('popup_opened');
+  }
+
+}
+
 // создание карточки
 
 const addNewCard = elemCard => {
@@ -79,6 +92,7 @@ const addNewCard = elemCard => {
   const image = copyCard.querySelector('.element__image');
   title.textContent = elemCard.name;
   image.src = elemCard.link;
+  image.alt = "Изображение " + elemCard.name;
 
   // удалить
   const deleteButCard = copyCard.querySelector('.element__delete-button');
@@ -95,9 +109,12 @@ const addNewCard = elemCard => {
 
     imagePopup.src = image.src;
     textImgPopup.textContent = elemCard.name;
+    imagePopup.alt = 'Изображение ' + elemCard.name;
 
     const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
     butCloseImgPopup.addEventListener('click', closeImgPopup);
+
+    popupElem.addEventListener('click', closeHendlPop);
 
   }
 
@@ -109,6 +126,7 @@ const addNewCard = elemCard => {
 }
 
 // обработчик событий для добавления карточек
+
 const eventHandlerAddCard = evt => {
   evt.preventDefault();
   createCard({name: titleElem.value, link: urlElem.value});
