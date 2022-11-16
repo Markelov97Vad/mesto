@@ -15,7 +15,6 @@ const titleElem = document.querySelector('#title');
 const urlElem = document.querySelector('#url');
 const addCardButtonElem = document.querySelector('.profile__add-button');
 
-
 const cardTemplateElem = document.querySelector('#cardTemplate').content;
 const cardElem = cardTemplateElem.querySelector('.element');
 
@@ -56,30 +55,22 @@ const initialCards = [
 // Рендер карточки
 
 const createCard = elemCard => {
-  elementsContainer.append(addNewCard(elemCard));
+  elementsContainer.prepend(addNewCard(elemCard));
 }
 
-// создание карточки
 // события для удаления карточки
+
 const deletHandelCard = evt => {
   evt.target.closest('.element').remove();
 };
+
 // события для лайка
+
 const likeHandlCard = evt => {
   evt.target.closest('.element__button').classList.toggle('element__button_active');
 };
 
-// const openImgHanCard = evt => {
-//   evt.target.popupImage;
-//   popupImage.classList.add('popup_opened');
-
-// }
-
-// функция удаления попапа с картинкой
-function closeImgPopup() {
-  popupImage.classList.toggle('popup_opened');
-}
-
+// создание карточки
 
 const addNewCard = elemCard => {
   const copyCard = cardElem.cloneNode(true);
@@ -102,7 +93,6 @@ const addNewCard = elemCard => {
     evt.target.popupImage;
     popupImage.classList.add('popup_opened');
 
-    //const imagePopup = popupImage.querySelector('.popup__image');
     imagePopup.src = image.src;
     textImgPopup.textContent = elemCard.name;
 
@@ -115,17 +105,11 @@ const addNewCard = elemCard => {
   const openImage = copyCard.querySelector('.element__image');
   openImage.addEventListener('click', openImgHanCard);
 
-  //const closeImgPopup = popupImage.querySelector('.popup__close-button');
-
-
-  // const imagePopup = popupImage.querySelector('.popup__image');
-  // imagePopup.src = image.src;
-
   return copyCard;
 }
 
-// обработчик событий
-const eventHandlerAddCard = (evt) => {
+// обработчик событий для добавления карточек
+const eventHandlerAddCard = evt => {
   evt.preventDefault();
   createCard({name: titleElem.value, link: urlElem.value});
   titleElem.value = '';
@@ -134,58 +118,45 @@ const eventHandlerAddCard = (evt) => {
 
 }
 
-
-
-
-
-// const createCard = objactCard => {
-//   elementsContainer.insertAdjacentHTML('afterbegin',
-//   `<article class="element">
-//     <button class="element__delete-button" type="button" aria-label="delete card"></button>
-//     <img src="${objactCard.link}" alt="Фото гор Тяньцзы" class="element__image">
-//     <div class="element__info">
-//       <h2 class="element__title">${objactCard.name}</h2>
-//       <button type="button" class="element__button" aria-label="mark like"></button>
-//     </div>
-//    </article>
-//   `)
-// }
-
 // методом forEach перебираем каждый элемент массива карточек
-initialCards.forEach((elemCard) => {
-  createCard(elemCard);
-  //console.log(objactCard);
-})
 
+initialCards.forEach(elemCard => createCard(elemCard));
 
+// функция закрытия попапа с картинкой
 
+function closeImgPopup() {
+  popupImage.classList.toggle('popup_opened');
+}
 
-// функция для добавления и удаления класса попапу Ред. профиль (открыть,зарыть)
+// функция для добавления и удаления класса попапу (Ред. профиль) (открыть,зарыть)
+
 function openCloseEditPopup () {
   popupEditElem.classList.toggle('popup_opened');
   nameInput.value = nameElem.textContent;
   jobInput.value = jobElem.textContent;
 }
 
-
+// обработчик событий для (Ред. профиля)
 function formSubmitHandler (evt) {
   evt.preventDefault();
   nameElem.textContent = nameInput.value;
   jobElem.textContent = jobInput.value;
   openCloseEditPopup();
 }
-  // функция для добавления и удаления класса попапу Новое место (открыть,зарыть)
-  function openCloseNewCardPopup () {
-    popupNewCard.classList.toggle('popup_opened');
-  };
+
+// функция для добавления и удаления класса попапу (Новое место) (открыть,зарыть)
+
+function openCloseNewCardPopup () {
+  popupNewCard.classList.toggle('popup_opened');
+};
 
 
-  popupEditButtonElem.addEventListener('click', openCloseEditPopup); // кнопка "редактировать" открытия попапа Ред. профиль
-  popupCloseButtonElem.addEventListener('click', openCloseEditPopup); // кнопка "X" попапа Ред. профиль
-  formElement.addEventListener('submit', formSubmitHandler); // кнопка "сохранить" попапа Ред. профиль
-  addCardButtonElem.addEventListener('click', openCloseNewCardPopup); // кнопка "+" открытия попапа Новое место
-  buttonClosePopup.addEventListener('click', openCloseNewCardPopup); // кнопка "Х" попапа Новое место
-  popupNewCard.addEventListener('submit', eventHandlerAddCard); // кнопка "создать" карточку
+popupEditButtonElem.addEventListener('click', openCloseEditPopup); // кнопка "редактировать" открытия попапа Ред. профиль
+popupCloseButtonElem.addEventListener('click', openCloseEditPopup); // кнопка "X" попапа Ред. профиль
+formElement.addEventListener('submit', formSubmitHandler); //  "сохранить" попап (Ред. профиль)
+addCardButtonElem.addEventListener('click', openCloseNewCardPopup); // кнопка "+" открытия попапа Новое место
+buttonClosePopup.addEventListener('click', openCloseNewCardPopup); // кнопка "Х" попапа (Новое место)
+popupNewCard.addEventListener('submit', eventHandlerAddCard); //  "создать" карточку
 
 
 
