@@ -14,12 +14,15 @@ const buttonClosePopup = popupNewCard.querySelector('.popup__close-button');
 const titleElem = document.querySelector('#title');
 const urlElem = document.querySelector('#url');
 const addCardButtonElem = document.querySelector('.profile__add-button');
-//const createButtElem = popupNewCard.querySelector('.form__submit-button')
+
 
 const cardTemplateElem = document.querySelector('#cardTemplate').content;
 const cardElem = cardTemplateElem.querySelector('.element');
-// console.log(cardTemplateElem);
-// console.log(cardElem);
+
+const popupImage = document.querySelector('.popup_theme_figure');
+const imagePopup = popupImage.querySelector('.popup__image');
+const textImgPopup = popupImage.querySelector('.popup__figcap')
+
 
 // карточки
 const initialCards = [
@@ -50,34 +53,73 @@ const initialCards = [
 ];
 
 
-// Добавление карточки
+// Рендер карточки
 
 const createCard = elemCard => {
   elementsContainer.append(addNewCard(elemCard));
 }
 
 // создание карточки
-// const deletHandelcard = evt => {
-//   evt.target.closest('.element').remove();
+// события для удаления карточки
+const deletHandelCard = evt => {
+  evt.target.closest('.element').remove();
+};
+// события для лайка
+const likeHandlCard = evt => {
+  evt.target.closest('.element__button').classList.toggle('element__button_active');
+};
+
+// const openImgHanCard = evt => {
+//   evt.target.popupImage;
+//   popupImage.classList.add('popup_opened');
+
 // }
+
+// функция удаления попапа с картинкой
+function closeImgPopup() {
+  popupImage.classList.toggle('popup_opened');
+}
+
 
 const addNewCard = elemCard => {
   const copyCard = cardElem.cloneNode(true);
 
   const title = copyCard.querySelector('.element__title');
-  const url = copyCard.querySelector('.element__image');
+  const image = copyCard.querySelector('.element__image');
   title.textContent = elemCard.name;
-  url.src = elemCard.link;
+  image.src = elemCard.link;
 
+  // удалить
   const deleteButCard = copyCard.querySelector('.element__delete-button');
-  deleteButCard.addEventListener('click', evt => {
-    evt.target.closest('.element').remove();
-  });
+  deleteButCard.addEventListener('click', deletHandelCard);
 
+  // лайк
   const likeButCard = copyCard.querySelector('.element__button');
-  likeButCard.addEventListener('click', evt => {
-    evt.target.closest('.element__button').classList.toggle('element__button_active');
-  });
+  likeButCard.addEventListener('click', likeHandlCard);
+
+  // события для открытия картинки
+  const openImgHanCard = evt => {
+    evt.target.popupImage;
+    popupImage.classList.add('popup_opened');
+
+    //const imagePopup = popupImage.querySelector('.popup__image');
+    imagePopup.src = image.src;
+    textImgPopup.textContent = elemCard.name;
+
+    const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
+    butCloseImgPopup.addEventListener('click', closeImgPopup);
+
+  }
+
+  // открыть картинку
+  const openImage = copyCard.querySelector('.element__image');
+  openImage.addEventListener('click', openImgHanCard);
+
+  //const closeImgPopup = popupImage.querySelector('.popup__close-button');
+
+
+  // const imagePopup = popupImage.querySelector('.popup__image');
+  // imagePopup.src = image.src;
 
   return copyCard;
 }
