@@ -96,6 +96,7 @@ initialCards.forEach(elemCard => addCard(elemCard));
 
 
 // обработчик событий для (Ред. профиль)
+
 function submitEditForm (evt) {
   evt.preventDefault();
   nameElem.textContent = nameInput.value;
@@ -118,6 +119,7 @@ function openEditProfileForm () {
 }
 
 // закрыть попап (Ред. профиль)
+
 function closeEditProfileForm () {
   closePopup(popupEditProfile);
 }
@@ -136,14 +138,14 @@ function closeCloseNewCardPopup () {
 
 // общая функцию открыть попап
 
-function openPopup (event) {
-  event.classList.add('popup_opened');
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
 }
 
 // общая функия закрыть попап
 
-function closePopup (event) {
-  event.classList.remove('popup_opened');
+function closePopup (popup) {
+  popup.classList.remove('popup_opened');
 }
 
 popupEditButtonElem.addEventListener('click', openEditProfileForm); // кнопка "редактировать" открытия попапа (Ред. профиль)
