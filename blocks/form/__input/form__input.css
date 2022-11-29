@@ -23,6 +23,14 @@
   border-radius: 2px;
 }
 
+/* .form__input:invalid {
+  border-bottom: 1px solid red;
+} */
+
+/* .form__input:valid {
+  border-bottom: 1px solid green;
+} */
+
 @media screen and (max-width: 320px) {
   .form__input:last-of-type {
     margin-bottom: 44px;

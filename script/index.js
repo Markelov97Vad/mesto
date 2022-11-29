@@ -6,7 +6,11 @@ const popupCloseButtonElem = popupEditProfile.querySelector('.popup__close-butto
 const nameElem = document.querySelector('.profile__title');
 const jobElem = document.querySelector('.profile__subtitle');
 const formElement = document.querySelector('.form');
-const nameInput = formElement.querySelector('#name');
+const nameInput = formElement.querySelector('#nameInput');
+// новые значения
+const formError = formElement.querySelector(`.name-input-error`);
+console.log(formError);
+
 const jobInput = formElement.querySelector('#job');
 
 const elementsContainer = document.querySelector('.elements');
@@ -24,6 +28,34 @@ const popupImage = document.querySelector('.popup_theme_figure');
 const imagePopup = popupImage.querySelector('.popup__image');
 const textImgPopup = popupImage.querySelector('.popup__figcap')
 const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
+
+// новые значения
+
+//showInputError
+
+const showInputError = elem => {
+  elem.classList.add('form__input_type_error');
+  formError.classList.add('form__input-error_active');
+};
+
+//hideInputError
+
+const hideInputError = elem => {
+  elem.classList.remove('form__input_type_error');
+  formError.classList.remove('form__input-error_active');
+};
+
+// isValid
+
+const isValid = () => {
+  if (nameInput.validity.valid) {
+    showInputError(nameInput);
+  } else {
+    hideInputError(nameInput);
+  }
+}
+
+nameInput.addEventListener('input', isValid);
 
 // Рендер карточки
 
@@ -134,6 +166,7 @@ function openCloseNewCardPopup () {
 
 function closeCloseNewCardPopup () {
   closePopup(popupNewCard);
+  console.log();
 }
 
 // общая функцию открыть попап
@@ -156,10 +189,11 @@ buttonClosePopup.addEventListener('click', closeCloseNewCardPopup); // кноп�
 popupNewCard.addEventListener('submit', submitAddCardForm); //  "создать" попапа (Добавить карточку)
 butCloseImgPopup.addEventListener('click', closeImgPopup); // кнопка "Х" попапа (картинка)
 
+// новые значения
 
 
-
-
-
+// nameInput.addEventListener('input', evt => {
+//   console.log(evt.target.validity.valid);
+// })
 
 
