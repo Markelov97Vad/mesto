@@ -6,19 +6,20 @@ const popupCloseButtonElem = popupEditProfile.querySelector('.popup__close-butto
 const nameElem = document.querySelector('.profile__title');
 const jobElem = document.querySelector('.profile__subtitle');
 const formElement = document.querySelector('.form');
-const nameInput = formElement.querySelector('#nameInput');
+const nameInput = formElement.querySelector('#name-input');
 // новые значения
-const formError = formElement.querySelector(`.name-input-error`);
-console.log(formError);
+const formInput = formElement.querySelector('.form__input');
+//const formError = formElement.querySelector(`.${formInput.id}-error`);
+//console.log(formError);
 
-const jobInput = formElement.querySelector('#job');
+const jobInput = formElement.querySelector('#job-input');
 
 const elementsContainer = document.querySelector('.elements');
 const popupNewCard = document.querySelector('.popup_theme_new-card');
 const formPopupCard = popupNewCard.querySelector('.popup__form');
 const buttonClosePopup = popupNewCard.querySelector('.popup__close-button');
-const titleElem = document.querySelector('#title');
-const urlElem = document.querySelector('#url');
+const titleElem = document.querySelector('#title-input');
+const urlElem = document.querySelector('#url-input');
 const addCardButtonElem = document.querySelector('.profile__add-button');
 
 const cardTemplateElem = document.querySelector('#cardTemplate').content;
@@ -33,29 +34,78 @@ const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
 
 //showInputError
 
-const showInputError = elem => {
-  elem.classList.add('form__input_type_error');
-  formError.classList.add('form__input-error_active');
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('form__input_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('form__input-error_active');
 };
 
 //hideInputError
 
-const hideInputError = elem => {
-  elem.classList.remove('form__input_type_error');
-  formError.classList.remove('form__input-error_active');
+const hideInputError = (formElement ,inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__input_type_error');
+  errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
 };
 
 // isValid
 
-const isValid = () => {
-  if (nameInput.validity.valid) {
-    showInputError(nameInput);
+const isValid = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
-    hideInputError(nameInput);
+    hideInputError(formElement, inputElement);
   }
-}
+};
 
-nameInput.addEventListener('input', isValid);
+// функция проверяет все поля
+const hasInvalidInput = inputList => {
+  return inputList.some( inputElement => {
+    return !inputElement.validity.valid;
+  })
+};
+
+// функция которая меняет состояние кнопки
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.removeAttribute('disabled');
+  }
+};
+
+// Добавление обработчиков всем полям формы
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const buttonElement = formElement.querySelector('.form__submit-button');
+  toggleButtonState(inputList, buttonElement);
+  console.log(inputList);
+  inputList.forEach( inputElem => {
+    inputElem.addEventListener('input', () => {
+      // Внутри колбэка вызовем isValid,
+      // передав ей форму и проверяемый элемент
+      isValid(formElement, inputElem);
+      toggleButtonState(inputList, buttonElement);
+  })
+ })
+};
+
+// Добавление обработчиков всем формам
+
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  console.log(formList);
+  formList.forEach( formElem => {
+    setEventListeners(formElem);
+  })
+};
+
+enableValidation();
+
+
+//formInput.addEventListener('input', isValid);
 
 // Рендер карточки
 

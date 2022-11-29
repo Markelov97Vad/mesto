@@ -43,11 +43,12 @@
       <h3 class="popup__title">Редактировать профиль</h3>
       <form class="form popup__form" name="form" novalidate>
         <fieldset class="form__input-container">
-          <input class="form__input" type="text" name="name" id="nameInput" placeholder="Имя"
+          <input class="form__input" type="text" name="name" id="name-input" placeholder="Имя"
             minlength="2" maxlength="40" required>
-          <span class="name-input-error form__input-error">Необходимо заполнить данное поле</span>
-          <input class="form__input" type="text" name="typeOfActivity" id="job" placeholder="Вид деятельности"
+          <span class="name-input-error form__input-error">Вы пропустили это поле</span>
+          <input class="form__input" type="text" name="typeOfActivity" id="job-input" placeholder="Вид деятельности"
             minlength="2" maxlength="200" required>
+          <span class="job-input-error form__input-error">Вы пропустили это поле</span>
           <button type='submit' class='form__submit-button'>Сохранить</button>
         </fieldset>
       </form>
@@ -60,10 +61,12 @@
       <h3 class="popup__title">Новое место</h3>
       <form class="form popup__form" name="form" novalidate>
         <fieldset class="form__input-container">
-          <input class="form__input" type="text" name="title" id="title" placeholder="Название"
+          <input class="form__input" type="text" name="title" id="title-input" placeholder="Название"
             minlength="2" maxlength="30" required>
-          <input class="form__input" type="url" name="linkPicture" id="url" placeholder="Ссылка на картинку"
+          <span class="title-input-error form__input-error">Вы пропустили это поле</span>
+          <input class="form__input" type="url" name="linkPicture" id="url-input" placeholder="Ссылка на картинку"
             required>
+          <span class="url-input-error form__input-error">Вы пропустили это поле</span>
           <button type='submit' id="create" class='form__submit-button'>Создать</button>
         </fieldset>
       </form>

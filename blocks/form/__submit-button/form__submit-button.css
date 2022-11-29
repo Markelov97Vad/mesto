@@ -13,6 +13,7 @@
   cursor: pointer;
   border: 0;
   padding: 0;
+  margin: 48px 0 0;
 }
 
 .form__submit-button:hover {
@@ -25,4 +26,11 @@
     line-height: 17px;
   }
 
+}
+
+.form__submit-button:disabled {
+  background-color: #fff;
+  opacity: .2;
+  color: #000;
+  border: 1px solid #000;
 }
