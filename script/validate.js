@@ -1,65 +1,22 @@
-
-// новые значения
-
-
-
-const popupElem = document.querySelectorAll('.popup');
-//////
-// function allpopupOverlay () {
-//   popupElem.forEach( popupElem => {
-//     closeOverlay (popupElem);
-//   })
-//   popupElem.forEach( popupElem => {
-//     cloceEscape(popupElem);
-//   })
-// };
-
-//allpopupOverlay ();
-
-function closeOverlay () {
-  popupElem.forEach( popupElem => {
-    popupElem.addEventListener('click', (evt) => {
-      if(evt.target === evt.currentTarget) {
-        closePopup(popupElem);
-      }
-    })
-  })
-};
-closeOverlay(popupElem);
-
-function cloceEscape () {
-  popupElem.forEach( popupElem => {
-    document.addEventListener('keydown', (evt) => {
-      if ( evt.key === 'Escape'){
-        closePopup(popupElem)
-      }
-    })
-  })
-};
-cloceEscape(popupElem);
-
-////////
-
-
-//showInputError
+//showInputError -  показывает элемент ошибки;
 
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('form__input_type_error');
+  inputElement.classList.add(objectSelectors.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
+  errorElement.classList.add(objectSelectors.errorClass);
 };
 
-//hideInputError
+//hideInputError -  скрывает элемент ошибки;
 
 const hideInputError = (formElement ,inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
+  inputElement.classList.remove(objectSelectors.inputErrorClass);
+  errorElement.classList.remove(objectSelectors.errorClass);
   errorElement.textContent = '';
 };
 
-// isValid
+// isValid - проверяет валидность поля;
 
 const isValid = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
@@ -69,14 +26,16 @@ const isValid = (formElement, inputElement) => {
   }
 };
 
-// функция проверяет все поля
+// функция проверяет все поля;
+
 const hasInvalidInput = inputList => {
   return inputList.some( inputElement => {
     return !inputElement.validity.valid;
   })
 };
 
-// функция которая меняет состояние кнопки
+// функция которая меняет состояние кнопки;
+
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute('disabled', true);
@@ -85,12 +44,13 @@ const toggleButtonState = (inputList, buttonElement) => {
   }
 };
 
-// Добавление обработчиков всем полям формы
+// Добавление обработчиков всем полям формы;
+
 const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const buttonElement = formElement.querySelector('.form__submit-button');
+  const inputList = Array.from(formElement.querySelectorAll(objectSelectors.inputSelector));
+  const buttonElement = formElement.querySelector(objectSelectors.submitButtonSelector);
+
   toggleButtonState(inputList, buttonElement);
-  console.dir(inputList);
   inputList.forEach( inputElem => {
     inputElem.addEventListener('input', () => {
       // Внутри колбэка вызовем isValid,
@@ -101,14 +61,20 @@ const setEventListeners = (formElement) => {
  })
 };
 
-// Добавление обработчиков всем формам
+// Добавление обработчиков всем формам;
 
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
-  console.log(formList);
+function enableValidation () {
+  const formList = Array.from(document.querySelectorAll(objectSelectors.formSelector));
+
   formList.forEach( formElem => {
     setEventListeners(formElem);
   })
 };
 
-enableValidation();
+enableValidation( objectSelectors = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit-button',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+})

@@ -5,14 +5,10 @@ const popupCloseButtonElem = popupEditProfile.querySelector('.popup__close-butto
 
 const nameElem = document.querySelector('.profile__title');
 const jobElem = document.querySelector('.profile__subtitle');
-const formElement = document.querySelector('.form');
-const nameInput = formElement.querySelector('#name-input');
-// новые значения
-const formInput = formElement.querySelector('.form__input');
-//const formError = formElement.querySelector(`.${formInput.id}-error`);
-//console.log(formError);
 
-const jobInput = formElement.querySelector('#job-input');
+ const formElement = document.querySelector('.form');
+ const nameInput = formElement.querySelector('#name-input');
+ const jobInput = formElement.querySelector('#job-input');
 
 const elementsContainer = document.querySelector('.elements');
 const popupNewCard = document.querySelector('.popup_theme_new-card');
@@ -25,15 +21,11 @@ const addCardButtonElem = document.querySelector('.profile__add-button');
 const cardTemplateElem = document.querySelector('#cardTemplate').content;
 const cardElem = cardTemplateElem.querySelector('.element');
 
+const popupElem = document.querySelectorAll('.popup');
 const popupImage = document.querySelector('.popup_theme_figure');
 const imagePopup = popupImage.querySelector('.popup__image');
 const textImgPopup = popupImage.querySelector('.popup__figcap')
 const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
-
-
-
-
-//formInput.addEventListener('input', isValid);
 
 // Рендер карточки
 
@@ -103,8 +95,6 @@ const submitAddCardForm = evt => {
 
 initialCards.forEach(elemCard => addCard(elemCard));
 
-
-
 // обработчик событий для (Ред. профиль)
 
 function submitEditForm (evt) {
@@ -118,7 +108,6 @@ function submitEditForm (evt) {
 
 function closeImgPopup() {
   closePopup(popupImage);
-
 }
 
 // открыть попап (Ред. профиль)
@@ -157,25 +146,34 @@ function openPopup (popup) {
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
-  //document.addEventListener('keydown', cloceEscape)
 }
 
-// NEW функция закртытия по оверлею
+// функция закрытия попапа кликом по оверлею
 
-// function closeHendlPop  (evt, popupElem) {
-//   if(evt.target === evt.currentTarget) {
-//     closePopup(popupElem);
-//   }
-// };
-// const enablePopup = (evt) => {
-//   const popupList = Array.from(document.querySelectorAll('.popup'));
-//   popupList.forEach( popupElem => {
-//     closeHendlPop(popupElem);
-//     console.log(popupElem);
-//   })
-// }
-//popupElem.addEventListener('click', closeHendlPop);
-//
+function closeOverlay () {
+  popupElem.forEach( popupElem => {
+    popupElem.addEventListener('click', (evt) => {
+      if(evt.target === evt.currentTarget) {
+        closePopup(popupElem);
+      }
+    })
+  })
+};
+closeOverlay(popupElem);
+
+// функция закрытия попапа нажатием кнопки Esc
+
+function closeEscape () {
+  popupElem.forEach( popupElem => {
+    document.addEventListener('keydown', (evt) => {
+      if ( evt.key === 'Escape'){
+        closePopup(popupElem)
+      }
+    })
+  })
+};
+closeEscape(popupElem);
+
 popupEditButtonElem.addEventListener('click', openEditProfileForm); // кнопка "редактировать" открытия попапа (Ред. профиль)
 popupCloseButtonElem.addEventListener('click', closeEditProfileForm); // кнопка "X" попапа (Ред. профиль)
 formElement.addEventListener('submit', submitEditForm); //  "сохранить" попап (Ред. профиль)
@@ -184,11 +182,6 @@ buttonClosePopup.addEventListener('click', closeCloseNewCardPopup); // кноп�
 popupNewCard.addEventListener('submit', submitAddCardForm); //  "создать" попапа (Добавить карточку)
 butCloseImgPopup.addEventListener('click', closeImgPopup); // кнопка "Х" попапа (картинка)
 
-// новые значения
 
-
-// nameInput.addEventListener('input', evt => {
-//   console.log(evt.target.validity.valid);
-// })
 
 
