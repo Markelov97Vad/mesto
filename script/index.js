@@ -30,79 +30,7 @@ const imagePopup = popupImage.querySelector('.popup__image');
 const textImgPopup = popupImage.querySelector('.popup__figcap')
 const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
 
-// новые значения
 
-//showInputError
-
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('form__input_type_error');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
-};
-
-//hideInputError
-
-const hideInputError = (formElement ,inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
-  errorElement.textContent = '';
-};
-
-// isValid
-
-const isValid = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-// функция проверяет все поля
-const hasInvalidInput = inputList => {
-  return inputList.some( inputElement => {
-    return !inputElement.validity.valid;
-  })
-};
-
-// функция которая меняет состояние кнопки
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.setAttribute('disabled', true);
-  } else {
-    buttonElement.removeAttribute('disabled');
-  }
-};
-
-// Добавление обработчиков всем полям формы
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const buttonElement = formElement.querySelector('.form__submit-button');
-  toggleButtonState(inputList, buttonElement);
-  console.log(inputList);
-  inputList.forEach( inputElem => {
-    inputElem.addEventListener('input', () => {
-      // Внутри колбэка вызовем isValid,
-      // передав ей форму и проверяемый элемент
-      isValid(formElement, inputElem);
-      toggleButtonState(inputList, buttonElement);
-  })
- })
-};
-
-// Добавление обработчиков всем формам
-
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
-  console.log(formList);
-  formList.forEach( formElem => {
-    setEventListeners(formElem);
-  })
-};
-
-enableValidation();
 
 
 //formInput.addEventListener('input', isValid);
@@ -190,6 +118,7 @@ function submitEditForm (evt) {
 
 function closeImgPopup() {
   closePopup(popupImage);
+
 }
 
 // открыть попап (Ред. профиль)
@@ -216,7 +145,6 @@ function openCloseNewCardPopup () {
 
 function closeCloseNewCardPopup () {
   closePopup(popupNewCard);
-  console.log();
 }
 
 // общая функцию открыть попап
@@ -229,8 +157,25 @@ function openPopup (popup) {
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  //document.addEventListener('keydown', cloceEscape)
 }
 
+// NEW функция закртытия по оверлею
+
+// function closeHendlPop  (evt, popupElem) {
+//   if(evt.target === evt.currentTarget) {
+//     closePopup(popupElem);
+//   }
+// };
+// const enablePopup = (evt) => {
+//   const popupList = Array.from(document.querySelectorAll('.popup'));
+//   popupList.forEach( popupElem => {
+//     closeHendlPop(popupElem);
+//     console.log(popupElem);
+//   })
+// }
+//popupElem.addEventListener('click', closeHendlPop);
+//
 popupEditButtonElem.addEventListener('click', openEditProfileForm); // кнопка "редактировать" открытия попапа (Ред. профиль)
 popupCloseButtonElem.addEventListener('click', closeEditProfileForm); // кнопка "X" попапа (Ред. профиль)
 formElement.addEventListener('submit', submitEditForm); //  "сохранить" попап (Ред. профиль)

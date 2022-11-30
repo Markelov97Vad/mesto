@@ -20,17 +20,17 @@
   opacity: .8;
 }
 
-@media screen and (max-width: 560px) {
-  .form__submit-button {
-    font-size: 14px;
-    line-height: 17px;
-  }
-
-}
-
 .form__submit-button:disabled {
   background-color: #fff;
   opacity: .2;
   color: #000;
   border: 1px solid #000;
 }
+
+@media screen and (max-width: 560px) {
+  .form__submit-button {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
