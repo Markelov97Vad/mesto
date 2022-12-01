@@ -6,26 +6,28 @@ const popupCloseButtonElem = popupEditProfile.querySelector('.popup__close-butto
 const nameElem = document.querySelector('.profile__title');
 const jobElem = document.querySelector('.profile__subtitle');
 
- const formElement = document.querySelector('.form');
- const nameInput = formElement.querySelector('#name-input');
- const jobInput = formElement.querySelector('#job-input');
+const formProfileElement = popupEditProfile.querySelector('.popup__form');
+const nameInput = formProfileElement.querySelector('#name-input');
+const jobInput = formProfileElement.querySelector('#job-input');
 
 const elementsContainer = document.querySelector('.elements');
 const popupNewCard = document.querySelector('.popup_theme_new-card');
 const formPopupCard = popupNewCard.querySelector('.popup__form');
 const buttonClosePopup = popupNewCard.querySelector('.popup__close-button');
-const titleElem = document.querySelector('#title-input');
-const urlElem = document.querySelector('#url-input');
+const titleElem = popupNewCard.querySelector('#title-input');
+const urlElem = popupNewCard.querySelector('#url-input');
 const addCardButtonElem = document.querySelector('.profile__add-button');
 
 const cardTemplateElem = document.querySelector('#cardTemplate').content;
 const cardElem = cardTemplateElem.querySelector('.element');
 
-const popupElem = document.querySelectorAll('.popup');
+const popupsElem = document.querySelectorAll('.popup');
 const popupImage = document.querySelector('.popup_theme_figure');
 const imagePopup = popupImage.querySelector('.popup__image');
 const textImgPopup = popupImage.querySelector('.popup__figcap')
 const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
+
+const ESC_CODE = 'Escape';
 
 // Рендер карточки
 
@@ -104,12 +106,6 @@ function submitEditForm (evt) {
   closePopup(popupEditProfile);
 }
 
-// закрыть попап (картинка)
-
-function closeImgPopup() {
-  closePopup(popupImage);
-}
-
 // открыть попап (Ред. профиль)
 
 function openEditProfileForm () {
@@ -118,69 +114,49 @@ function openEditProfileForm () {
   jobInput.value = jobElem.textContent;
 }
 
-// закрыть попап (Ред. профиль)
-
-function closeEditProfileForm () {
-  closePopup(popupEditProfile);
-}
-
-// открыть попап (Добавить карточку)
-
-function openCloseNewCardPopup () {
-  openPopup(popupNewCard);
-};
-
-// закрыть попап (Добавить карточку)
-
-function closeCloseNewCardPopup () {
-  closePopup(popupNewCard);
-}
-
 // общая функцию открыть попап
 
 function openPopup (popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown',  closeByEsc)
 }
 
 // общая функия закрыть попап
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown',  closeByEsc)
 }
 
 // функция закрытия попапа кликом по оверлею
 
 function closeOverlay () {
-  popupElem.forEach( popupElem => {
-    popupElem.addEventListener('click', (evt) => {
+  popupsElem.forEach( popupElem => {
+    popupElem.addEventListener('mousedown', (evt) => {
       if(evt.target === evt.currentTarget) {
         closePopup(popupElem);
       }
     })
   })
 };
-closeOverlay(popupElem);
+closeOverlay(popupsElem);
 
 // функция закрытия попапа нажатием кнопки Esc
 
-function closeEscape () {
-  popupElem.forEach( popupElem => {
-    document.addEventListener('keydown', (evt) => {
-      if ( evt.key === 'Escape'){
-        closePopup(popupElem)
-      }
-    })
-  })
-};
-closeEscape(popupElem);
+function closeByEsc(evt) {
+  if (evt.key === ESC_CODE) {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
 
 popupEditButtonElem.addEventListener('click', openEditProfileForm); // кнопка "редактировать" открытия попапа (Ред. профиль)
-popupCloseButtonElem.addEventListener('click', closeEditProfileForm); // кнопка "X" попапа (Ред. профиль)
-formElement.addEventListener('submit', submitEditForm); //  "сохранить" попап (Ред. профиль)
-addCardButtonElem.addEventListener('click', openCloseNewCardPopup); // кнопка "+" открытия попапа (Добавить карточку)
-buttonClosePopup.addEventListener('click', closeCloseNewCardPopup); // кнопка "Х" попапа (Добавить карточку)
+popupCloseButtonElem.addEventListener('click', () => { closePopup(popupEditProfile) }); // кнопка "X" попапа (Ред. профиль)
+formProfileElement.addEventListener('submit', submitEditForm); //  "сохранить" попап (Ред. профиль)
+addCardButtonElem.addEventListener('click', () => { openPopup(popupNewCard) }); // кнопка "+" открытия попапа (Добавить карточку)
+buttonClosePopup.addEventListener('click', () => { closePopup(popupNewCard) }); // кнопка "Х" попапа (Добавить карточку)
 popupNewCard.addEventListener('submit', submitAddCardForm); //  "создать" попапа (Добавить карточку)
-butCloseImgPopup.addEventListener('click', closeImgPopup); // кнопка "Х" попапа (картинка)
+butCloseImgPopup.addEventListener('click', () => { closePopup(popupImage) }); // кнопка "Х" попапа (картинка)
 
 
 
