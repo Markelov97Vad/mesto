@@ -50,37 +50,37 @@ const likeCard = evt => {
 // создание карточки
 
 const createCard = elemCard => {
-  const copyCard = cardElem.cloneNode(true);
+          const copyCard = cardElem.cloneNode(true);
 
-  const title = copyCard.querySelector('.element__title');
-  const image = copyCard.querySelector('.element__image');
+          const title = copyCard.querySelector('.element__title');
+          const image = copyCard.querySelector('.element__image');
 
-  title.textContent = elemCard.name;
-  image.src = elemCard.link;
-  image.alt = "Изображение " + elemCard.name;
+          title.textContent = elemCard.name;
+          image.src = elemCard.link;
+          image.alt = "Изображение " + elemCard.name;
 
-  // удалить
-  const deleteButCard = copyCard.querySelector('.element__delete-button');
-  deleteButCard.addEventListener('click', deleteCard);
+          // удалить
+          const deleteButCard = copyCard.querySelector('.element__delete-button');
+          deleteButCard.addEventListener('click', deleteCard);
 
-  // лайк
-  const likeButCard = copyCard.querySelector('.element__button');
-  likeButCard.addEventListener('click', likeCard);
+          // лайк
+          const likeButCard = copyCard.querySelector('.element__button');
+          likeButCard.addEventListener('click', likeCard);
 
-  // события для открытия картинки
-  const openImagePopup = () => {
-    openPopup(popupImage);
+          // события для открытия картинки
+          const openImagePopup = () => {
+            openPopup(popupImage);
 
-    imagePopup.src = image.src;
-    textImgPopup.textContent = elemCard.name;
-    imagePopup.alt = 'Изображение ' + elemCard.name;
-  }
+            imagePopup.src = image.src;
+            textImgPopup.textContent = elemCard.name;
+            imagePopup.alt = 'Изображение ' + elemCard.name;
+          }
 
-  // открыть картинку
-  const openImage = copyCard.querySelector('.element__image');
-  openImage.addEventListener('click', openImagePopup);
+          // открыть картинку
+          const openImage = copyCard.querySelector('.element__image');
+          openImage.addEventListener('click', openImagePopup);
 
-  return copyCard;
+          return copyCard;
 }
 
 // обработчик событий для добавления карточек
