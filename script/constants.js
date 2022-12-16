@@ -26,6 +26,8 @@ const initialCards = [
   }
 ];
 
+// объект настроек с селекторами и классами формы;
+
 const objectSelectors = {
   formSelector: '.popup__form',
   inputSelector: '.form__input',
@@ -33,3 +35,5 @@ const objectSelectors = {
   inputErrorClass: 'form__input_type_error',
   errorClass: 'form__input-error_active'
 }
+
+export { initialCards, objectSelectors };

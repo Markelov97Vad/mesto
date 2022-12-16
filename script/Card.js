@@ -1,8 +1,12 @@
-class Card {
+const popupImage = document.querySelector('.popup_theme_figure');
+const imagePopup = popupImage.querySelector('.popup__image');
+const textImgPopup = popupImage.querySelector('.popup__figcap')
+const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
+
+export default class Card {
   constructor(data, templateSelector){
     this._name = data.name;
     this._link = data.link;
-    //this._alt = data.alt;
     this._templateSelector = templateSelector;
   }
 
@@ -23,10 +27,7 @@ class Card {
     this._elem.querySelector('.element__title').textContent = this._name;
     this._image.src = this._link;
     this._image.alt = this._name;
-    //this._elem.querySelector('.element__image').src = this._image;
-    //this._setEventListeners();
-    // this._elem.querySelector('.element__delete-button')
-    // .addEventListener('click', deleteCard);
+
     return this._elem;
 
   }
@@ -53,24 +54,17 @@ class Card {
       this._deleteCard();
     })
   }
-//    ✅
+
   _handleOpenPopup(){
     popupImage.classList.add('popup_opened');
     imagePopup.src = this._link;
     textImgPopup.textContent = this._name
-    console.log(popupImage)
   }
-//    ✅
+
   _handleClosePopup(){
     imagePopup.src = '';
     popupImage.classList.remove('popup_opened');
   }
 
-};
+}
 
-initialCards.forEach( item => {
-  const card = new Card (item, "#cardTemplate");
-  const cardElem = card.generateCard();
-
-  elementsContainer.prepend(cardElem);
-})
