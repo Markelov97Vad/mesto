@@ -108,6 +108,7 @@ function closeByEsc(evt) {
   }
 }
 
+
 popupEditButtonElem.addEventListener('click', openEditProfileForm); // кнопка "редактировать" открытия попапа (Ред. профиль)
 popupCloseButtonElem.addEventListener('click', () => { closePopup(popupEditProfile) }); // кнопка "X" попапа (Ред. профиль)
 formProfileElement.addEventListener('submit', submitEditForm); //  "сохранить" попап (Ред. профиль)
