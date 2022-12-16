@@ -1,23 +1,23 @@
 export default class FormValidator {
   constructor(objectSelectors , formElem) {
-    this._objSel = objectSelectors;
+    this._objectSelectors = objectSelectors;
     this._formElem = formElem;
-    this._inputList = Array.from(this._formElem.querySelectorAll(this._objSel.inputSelector));
-    this._formList = Array.from(document.querySelectorAll(this._objSel.formSelector));
-    this._buttonElement =  this._formElem.querySelector(this._objSel.submitButtonSelector);
+    this._inputList = Array.from(this._formElem.querySelectorAll(this._objectSelectors.inputSelector));
+    this._formList = Array.from(document.querySelectorAll(this._objectSelectors.formSelector));
+    this._buttonElement =  this._formElem.querySelector(this._objectSelectors.submitButtonSelector);
   }
 // показывает элемент ошибки;
   _showInputError(inputElement, errorMessage) {
     const errorElement =  this._formElem.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(this._objSel.inputErrorClass);
+    inputElement.classList.add(this._objectSelectors.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this._objSel.errorClass);
+    errorElement.classList.add(this._objectSelectors.errorClass);
   }
 // скрывает элемент ошибки;
   _hideInputError(inputElement) {
     const errorElement =  this._formElem.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(this._objSel.inputErrorClass);
-    errorElement.classList.remove(this._objSel.errorClass);
+    inputElement.classList.remove(this._objectSelectors.inputErrorClass);
+    errorElement.classList.remove(this._objectSelectors.errorClass);
     errorElement.textContent = '';
   }
 // проверяет валидность поля;
