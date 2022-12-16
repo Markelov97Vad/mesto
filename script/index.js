@@ -29,73 +29,31 @@ const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
 
 const ESC_CODE = 'Escape';
 
-// Рендер карточки
+// initialCards.forEach( item => {
+//   const card = new Card (item, "#cardTemplate");
+//   const cardElem = card.generateCard();
 
-const addCard = elemCard => {
-  elementsContainer.prepend(createCard(elemCard));
-}
+//   elementsContainer.prepend(cardElem);
+// })
 
-// события для удаления карточки
 
-const deleteCard = evt => {
-  evt.target.closest('.element').remove();
-};
-
-// события для лайка
-
-const likeCard = evt => {
-  evt.target.closest('.element__button').classList.toggle('element__button_active');
-};
-
-// создание карточки
-
-const createCard = elemCard => {
-          const copyCard = cardElem.cloneNode(true);
-
-          const title = copyCard.querySelector('.element__title');
-          const image = copyCard.querySelector('.element__image');
-
-          title.textContent = elemCard.name;
-          image.src = elemCard.link;
-          image.alt = "Изображение " + elemCard.name;
-
-          // удалить
-          const deleteButCard = copyCard.querySelector('.element__delete-button');
-          deleteButCard.addEventListener('click', deleteCard);
-
-          // лайк
-          const likeButCard = copyCard.querySelector('.element__button');
-          likeButCard.addEventListener('click', likeCard);
-
-          // события для открытия картинки
-          const openImagePopup = () => {
-            openPopup(popupImage);
-
-            imagePopup.src = image.src;
-            textImgPopup.textContent = elemCard.name;
-            imagePopup.alt = 'Изображение ' + elemCard.name;
-          }
-
-          // открыть картинку
-          const openImage = copyCard.querySelector('.element__image');
-          openImage.addEventListener('click', openImagePopup);
-
-          return copyCard;
-}
-
-// обработчик событий для добавления карточек
+// обработчик событий для добавления новой карточки
 
 const submitAddCardForm = evt => {
   evt.preventDefault();
-  addCard({name: titleElem.value, link: urlElem.value});
+  const elem = {name: titleElem.value, link: urlElem.value}
+  const card = new Card(elem, "#cardTemplate");
+  const cardElem = card.generateCard();
+  elementsContainer.prepend(cardElem);
   formPopupCard.reset();
 
   closePopup(popupNewCard);
 }
 
+
 // методом forEach перебираем каждый элемент массива карточек
 
-initialCards.forEach(elemCard => addCard(elemCard));
+// initialCards.forEach(elemCard => addCard(elemCard));
 
 // обработчик событий для (Ред. профиль)
 
@@ -156,7 +114,7 @@ formProfileElement.addEventListener('submit', submitEditForm); //  "сохран
 addCardButtonElem.addEventListener('click', () => { openPopup(popupNewCard) }); // кнопка "+" открытия попапа (Добавить карточку)
 buttonClosePopup.addEventListener('click', () => { closePopup(popupNewCard) }); // кнопка "Х" попапа (Добавить карточку)
 popupNewCard.addEventListener('submit', submitAddCardForm); //  "создать" попапа (Добавить карточку)
-butCloseImgPopup.addEventListener('click', () => { closePopup(popupImage) }); // кнопка "Х" попапа (картинка)
+//butCloseImgPopup.addEventListener('click', () => { closePopup(popupImage) }); // кнопка "Х" попапа (картинка)
 
 
 
