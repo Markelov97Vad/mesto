@@ -4,7 +4,6 @@ import { initialCards, objectSelectors } from "./constants.js"
 
 const popupEditButtonElem = document.querySelector('.profile__edit-button')
 const popupEditProfile = document.querySelector('.popup_theme_edit');
-const popupCloseButtonElem = popupEditProfile.querySelector('.popup__close-button');
 const nameElem = document.querySelector('.profile__title');
 const jobElem = document.querySelector('.profile__subtitle');
 const formProfileElement = popupEditProfile.querySelector('.popup__form');
@@ -13,30 +12,57 @@ const jobInput = formProfileElement.querySelector('#job-input');
 const elementsContainer = document.querySelector('.elements');
 const popupNewCard = document.querySelector('.popup_theme_new-card');
 const formPopupCard = popupNewCard.querySelector('.popup__form');
-const buttonClosePopup = popupNewCard.querySelector('.popup__close-button');
 const titleElem = popupNewCard.querySelector('#title-input');
 const urlElem = popupNewCard.querySelector('#url-input');
 const addCardButtonElem = document.querySelector('.profile__add-button');
 const popupsElem = document.querySelectorAll('.popup');
-const ESC_CODE = 'Escape';
+const popupImage = document.querySelector('.popup_theme_figure');
+const imagePopup = popupImage.querySelector('.popup__image');
+const textImgPopup = popupImage.querySelector('.popup__figcap')
+const buttonCloseList = document.querySelectorAll('.popup__close-button');
 
-// рендер карточек
+// для открытия попапа с изображением
 
-initialCards.forEach( item => {
-  const card = new Card (item, "#cardTemplate");
+function handleOpenPopup(name, link) {
+  imagePopup.src = link;
+  imagePopup.alt = name;
+  textImgPopup.textContent = name;
+  openPopup(popupImage);
+}
+
+// для закрытия попапа с изображением
+
+function handleClosePopup(){
+  imagePopup.src = '';
+  imagePopup.alt = '';
+  textImgPopup.textContent = '';
+  closePopup(popupImage)
+}
+
+// генерация карточки
+
+function createCard(data) {
+  const card = new Card (data, "#cardTemplate", handleOpenPopup, handleClosePopup);
   const cardElem = card.generateCard();
 
-  elementsContainer.prepend(cardElem);
-})
+  return cardElem;
+}
+
+// для добавления карточки в DOM
+
+function addCard(elemCard) {
+  elementsContainer.prepend(createCard(elemCard));
+}
+
+// добавляем карточки в DOM
+
+initialCards.forEach( elem => { addCard(elem) })
 
 // обработчик событий для добавления новой карточки
 
 const submitAddCardForm = evt => {
   evt.preventDefault();
-  const elem = {name: titleElem.value, link: urlElem.value}
-  const card = new Card(elem, "#cardTemplate");
-  const cardElem = card.generateCard();
-  elementsContainer.prepend(cardElem);
+  addCard({name: titleElem.value, link: urlElem.value});
   formPopupCard.reset();
 
   closePopup(popupNewCard);
@@ -64,7 +90,7 @@ function openEditProfileForm () {
 
 function openPopup (popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown',  closeByEsc)
+  document.addEventListener('keydown',  closeByEsc);
 }
 
 // общая функия закрыть попап
@@ -72,6 +98,8 @@ function openPopup (popup) {
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown',  closeByEsc)
+  formProfileEditValidator.resetValidation();
+  formNewCardValidator.resetValidation();
 }
 
 // функция закрытия попапа кликом по оверлею
@@ -90,26 +118,31 @@ closeOverlay(popupsElem);
 // функция закрытия попапа нажатием кнопки Esc
 
 function closeByEsc(evt) {
-  if (evt.key === ESC_CODE) {
+  if (evt.key === "Escape") {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
 }
 
+// добавление валидации для 'Редактирования профиля'
+
 const formProfileEditValidator = new FormValidator(objectSelectors , popupEditProfile);
 formProfileEditValidator.enableValidation();
+
+// добавление валидации для 'Новое место'
 
 const formNewCardValidator = new FormValidator(objectSelectors , popupNewCard);
 formNewCardValidator.enableValidation();
 
+// добавление слушателя для всех 'X' попапов
+
+buttonCloseList.forEach(butn => {
+  const popup = butn.closest('.popup');
+  butn.addEventListener('click', () => closePopup(popup));
+})
+
 popupEditButtonElem.addEventListener('click', openEditProfileForm); // кнопка "редактировать" открытия попапа (Ред. профиль)
-popupCloseButtonElem.addEventListener('click', () => { closePopup(popupEditProfile) }); // кнопка "X" попапа (Ред. профиль)
 formProfileElement.addEventListener('submit', submitEditForm); //  "сохранить" попап (Ред. профиль)
 addCardButtonElem.addEventListener('click', () => { openPopup(popupNewCard) }); // кнопка "+" открытия попапа (Добавить карточку)
-buttonClosePopup.addEventListener('click', () => { closePopup(popupNewCard) }); // кнопка "Х" попапа (Добавить карточку)
 popupNewCard.addEventListener('submit', submitAddCardForm); //  "создать" попапа (Добавить карточку)
-
-
-
-
 

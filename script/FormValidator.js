@@ -3,7 +3,6 @@ export default class FormValidator {
     this._objectSelectors = objectSelectors;
     this._formElem = formElem;
     this._inputList = Array.from(this._formElem.querySelectorAll(this._objectSelectors.inputSelector));
-    this._formList = Array.from(document.querySelectorAll(this._objectSelectors.formSelector));
     this._buttonElement =  this._formElem.querySelector(this._objectSelectors.submitButtonSelector);
   }
 // показывает элемент ошибки;
@@ -47,10 +46,18 @@ export default class FormValidator {
     this._toggleButtonState();
     this._inputList.forEach( inputElem => {
       inputElem.addEventListener('input', () => {
-        this._isValid(inputElem)
+        this._isValid(inputElem);
         this._toggleButtonState();
+      })
     })
-   })
+  }
+// метод для очистки ошибок и управления кнопкой
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
   }
 // Добавление обработчиков всем формам;
   enableValidation () {

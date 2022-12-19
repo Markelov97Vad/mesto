@@ -1,13 +1,10 @@
-const popupImage = document.querySelector('.popup_theme_figure');
-const imagePopup = popupImage.querySelector('.popup__image');
-const textImgPopup = popupImage.querySelector('.popup__figcap')
-const butCloseImgPopup = popupImage.querySelector('.popup__close-button');
-
 export default class Card {
-  constructor(data, templateSelector){
+  constructor(data, templateSelector, handleOpenPopup, handleClosePopup) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleOpenPopup = handleOpenPopup;
+    this._handleClosePopup = handleClosePopup;
   }
 
   _getTemplate() {
@@ -29,11 +26,11 @@ export default class Card {
     this._image.alt = this._name;
 
     return this._elem;
-
   }
 
   _deleteCard () {
     this._elem.remove();
+    this._element = null;
   }
 
   _likeCard() {
@@ -41,12 +38,12 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._image.addEventListener('click', () => {
-      this._handleOpenPopup()
+    this._image.addEventListener('click', () =>{
+      this._handleOpenPopup(this._name, this._link);
     });
-    butCloseImgPopup.addEventListener('click', () => {
-      this._handleClosePopup();
-    })
+    this._image.addEventListener('click', () =>{
+      this._handleClosePopup(this._name, this._link);
+    });
     this._likeButCard.addEventListener('click', () => {
       this._likeCard();
     })
@@ -54,17 +51,5 @@ export default class Card {
       this._deleteCard();
     })
   }
-
-  _handleOpenPopup(){
-    popupImage.classList.add('popup_opened');
-    imagePopup.src = this._link;
-    textImgPopup.textContent = this._name
-  }
-
-  _handleClosePopup(){
-    imagePopup.src = '';
-    popupImage.classList.remove('popup_opened');
-  }
-
 }
 
