@@ -30,19 +30,10 @@ function handleOpenPopup(name, link) {
   openPopup(popupImage);
 }
 
-// для закрытия попапа с изображением
-
-function handleClosePopup(){
-  imagePopup.src = '';
-  imagePopup.alt = '';
-  textImgPopup.textContent = '';
-  closePopup(popupImage)
-}
-
 // генерация карточки
 
 function createCard(data) {
-  const card = new Card (data, "#cardTemplate", handleOpenPopup, handleClosePopup);
+  const card = new Card (data, "#cardTemplate", handleOpenPopup);
   const cardElem = card.generateCard();
 
   return cardElem;
@@ -67,7 +58,6 @@ const submitAddCardForm = evt => {
 
   closePopup(popupNewCard);
 }
-
 
 // обработчик событий для (Ред. профиль)
 
