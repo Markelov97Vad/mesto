@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "----- _Проект Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки, а также редактировать профиль._ ----- ### **Используемый Стек:**",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Markelov97Vad/mesto.git"
+  },
+  "author": "Markelov Vadim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Markelov97Vad/mesto/issues"
+  },
+  "homepage": "https://github.com/Markelov97Vad/mesto#readme"
+}
