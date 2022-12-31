@@ -1,6 +1,7 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import { initialCards, objectSelectors } from "./constants.js"
+import Section from "./components/Section.js";
 
 const popupEditButtonElem = document.querySelector('.profile__edit-button')
 const popupEditProfile = document.querySelector('.popup_theme_edit');
@@ -9,7 +10,7 @@ const jobElem = document.querySelector('.profile__subtitle');
 const formProfileElement = popupEditProfile.querySelector('.popup__form');
 const nameInput = formProfileElement.querySelector('#name-input');
 const jobInput = formProfileElement.querySelector('#job-input');
-const elementsContainer = document.querySelector('.elements');
+//const elementsContainer = document.querySelector('.elements');
 const popupNewCard = document.querySelector('.popup_theme_new-card');
 const formPopupCard = popupNewCard.querySelector('.popup__form');
 const titleElem = popupNewCard.querySelector('#title-input');
@@ -23,31 +24,45 @@ const buttonCloseList = document.querySelectorAll('.popup__close-button');
 
 // для открытия попапа с изображением
 
-function handleOpenPopup(name, link) {
-  imagePopup.src = link;
-  imagePopup.alt = name;
-  textImgPopup.textContent = name;
-  openPopup(popupImage);
-}
+// function handleOpenPopup(name, link) {
+//   imagePopup.src = link;
+//   imagePopup.alt = name;
+//   textImgPopup.textContent = name;
+//   openPopup(popupImage);
+// }
 
 // генерация карточки
 
-function createCard(data) {
-  const card = new Card (data, "#cardTemplate", handleOpenPopup);
-  const cardElem = card.generateCard();
+// function createCard(data) {
+//   const card = new Card (data, "#cardTemplate", handleOpenPopup);
+//   const cardElem = card.generateCard();
 
-  return cardElem;
-}
+//   return cardElem;
+// }
 
 // для добавления карточки в DOM
 
-function addCard(elemCard) {
-  elementsContainer.prepend(createCard(elemCard));
-}
+// function addCard(elemCard) {
+//   elementsContainer.prepend(createCard(elemCard));
+// }
 
 // добавляем карточки в DOM
 
-initialCards.forEach( elem => { addCard(elem) })
+// initialCards.forEach( elem => { addCard(elem) });
+
+const cardList =  new Section({
+  item: initialCards,
+  renderer: (elemCard) => {
+    const card = new Card (elemCard, "#cardTemplate");
+    const cardElem = card.generateCard();
+
+    cardList.addItem(cardElem);
+  }
+  },
+  '.elements'
+);
+
+cardList.renderItems();
 
 // обработчик событий для добавления новой карточки
 
