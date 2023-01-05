@@ -109,25 +109,25 @@ function closePopup (popup) {
 
 // функция закрытия попапа кликом по оверлею
 
-function closeOverlay () {
-  popupsElem.forEach( popupElem => {
-    popupElem.addEventListener('mousedown', (evt) => {
-      if(evt.target === evt.currentTarget) {
-        closePopup(popupElem);
-      }
-    })
-  })
-};
-closeOverlay(popupsElem);
+// function closeOverlay () {
+//   popupsElem.forEach( popupElem => {
+//     popupElem.addEventListener('mousedown', (evt) => {
+//       if(evt.target === evt.currentTarget) {
+//         closePopup(popupElem);
+//       }
+//     })
+//   })
+// };
+// closeOverlay(popupsElem);
 
 // функция закрытия попапа нажатием кнопки Esc
 
-function closeByEsc(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
+// function closeByEsc(evt) {
+//   if (evt.key === "Escape") {
+//     const openedPopup = document.querySelector('.popup_opened');
+//     closePopup(openedPopup);
+//   }
+// }
 
 // добавление валидации для 'Редактирования профиля'
 
