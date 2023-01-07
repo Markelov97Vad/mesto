@@ -5,11 +5,12 @@ import Section from "./components/Section.js";
 //import Popup from "./components/Popup.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import PopupWithForm from "./components/PopupWithForm.js";
+import UserInfo from "./components/UserInfo.js";
 
-//const popupEditButtonElem = document.querySelector('.profile__edit-button')
+const popupEditButtonElem = document.querySelector('.profile__edit-button')
 const popupEditProfile = document.querySelector('.popup_theme_edit');
-const nameElem = document.querySelector('.profile__title');
-const jobElem = document.querySelector('.profile__subtitle');
+//const nameElem = document.querySelector('.profile__title');
+//const jobElem = document.querySelector('.profile__subtitle');
 const formProfileElement = popupEditProfile.querySelector('.popup__form');
 const nameInput = formProfileElement.querySelector('#name-input');
 const jobInput = formProfileElement.querySelector('#job-input');
@@ -53,6 +54,7 @@ const buttonCloseList = document.querySelectorAll('.popup__close-button');
 
 // initialCards.forEach( elem => { addCard(elem) });
 
+
 const cardsList =  new Section({
   item: initialCards,
   renderer: (elemCard) => {
@@ -79,19 +81,83 @@ function createCard (data) {
   return cardElement;
 };
 
+// попап с картинокой
 const popupImage = new PopupWithImage('.popup_theme_figure');
 
-//popupImage.setEventListeners();
+popupImage.setEventListeners();
 
+// ПОЛЬЗОВАТЕЛЬ
+
+const userData = new UserInfo({
+  username: '.profile__title',
+  info: '.profile__subtitle'
+});
+
+
+// попап формы ред профиль ✅
+
+const popupFormCreatePrifile = new PopupWithForm({
+  selector: ".popup_theme_edit",
+  handleFormSubmit: (formData) => {
+    userData.setUserInfo(formData);
+    popupFormCreatePrifile.close()
+  }
+});
+
+popupFormCreatePrifile.setEventListeners();
+
+
+function dataFormForInput ({username, info}) {
+  nameInput.value = username;
+  jobInput.value = info;
+}
+
+
+popupEditButtonElem.addEventListener('click', () => {
+  const inform = userData.getUserInfo();
+  dataFormForInput({
+    username: inform.username,
+    info: inform.info
+  });
+  popupFormCreatePrifile.open();
+}
+)
+
+// попап Новое место ✅
+
+const popupFormNewCard = new PopupWithForm({
+  selector: '.popup_theme_new-card',
+  handleFormSubmit: (formData) => {
+    cardsList.addItem(createCard(formData));
+    popupFormNewCard.close()
+  }
+})
+
+popupFormNewCard.setEventListeners();
+
+addCardButtonElem.addEventListener('click', () => {
+  popupFormNewCard.open();
+})
+
+// const form = new PopupWithForm({
+//   selector: '.popup_theme_new-card',
+//   handleFormSubmit: (formData) => {
+//     cardsList.addItem(createCard(formData));
+//     cardsList.close();
+//   }
+// })
+
+// form.setEventListeners()
 // обработчик событий для добавления новой карточки
 
-const submitAddCardForm = evt => {
-  evt.preventDefault();
-  addCard({name: titleElem.value, link: urlElem.value});
-  formPopupCard.reset();
+// const submitAddCardForm = evt => {
+//   evt.preventDefault();
+//   addCard({name: titleElem.value, link: urlElem.value});
+//   formPopupCard.reset();
 
-  closePopup(popupNewCard);
-}
+//   closePopup(popupNewCard);
+// }
+
 
 // обработчик событий для (Ред. профиль)
 
@@ -168,5 +234,5 @@ formNewCardValidator.enableValidation();
 //popupEditButtonElem.addEventListener('click', openEditProfileForm); // кнопка "редактировать" открытия попапа (Ред. профиль)
 //formProfileElement.addEventListener('submit', submitEditForm); //  "сохранить" попап (Ред. профиль)
 //addCardButtonElem.addEventListener('click', () => { openPopup(popupNewCard) }); // кнопка "+" открытия попапа (Добавить карточку)
-popupNewCard.addEventListener('submit', submitAddCardForm); //  "создать" попапа (Добавить карточку)
+//popupNewCard.addEventListener('submit', submitAddCardForm); //  "создать" попапа (Добавить карточку)
 
