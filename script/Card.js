@@ -4,7 +4,6 @@ export default class Card {
     this._link = dataCard.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    // this._handleOpenPopup = handleOpenPopup;
   }
 
   _getTemplate() {

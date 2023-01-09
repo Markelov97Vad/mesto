@@ -36,4 +36,12 @@ const objectSelectors = {
   errorClass: 'form__input-error_active'
 }
 
-export { initialCards, objectSelectors };
+const popupEditButtonElem = document.querySelector('.profile__edit-button')
+const popupEditProfile = document.querySelector('.popup_theme_edit');
+const formProfileElement = popupEditProfile.querySelector('.popup__form');
+const nameInput = formProfileElement.querySelector('#name-input');
+const jobInput = formProfileElement.querySelector('#job-input');
+const popupNewCard = document.querySelector('.popup_theme_new-card');
+const addCardButtonElem = document.querySelector('.profile__add-button');
+
+export { initialCards, objectSelectors, popupEditButtonElem, popupEditProfile, nameInput, jobInput, popupNewCard, addCardButtonElem}

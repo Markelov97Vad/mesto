@@ -11,14 +11,6 @@ export default class Popup {
     }
   }
 
-  // _handleCloseOverlay() {
-  //   this._popup.addEventListener('mousedown', (evt) => {
-  //     if(evt.target === evt.currentTarget) {
-  //       this.close();
-  //     }
-  //   })
-  // }
-
   open() {
     this._popup.classList.add('popup_opened');
     document.addEventListener('keydown', this._closeByEsc);
