@@ -34,7 +34,7 @@ export default class FormValidator {
     })
   }
 // меняет состояние кнопки;
-  _toggleButtonState () {
+  toggleButtonState () {
     if (this._hasInvalidInput(this._inputList)) {
       this._buttonElement.setAttribute('disabled', true);
     } else {
@@ -43,17 +43,17 @@ export default class FormValidator {
   }
 // Добавление обработчиков всем полям формы;
   _setEventListeners() {
-    this._toggleButtonState();
+    this.toggleButtonState();
     this._inputList.forEach( inputElem => {
       inputElem.addEventListener('input', () => {
         this._isValid(inputElem);
-        this._toggleButtonState();
+        this.toggleButtonState();
       })
     })
   }
 // метод для очистки ошибок и управления кнопкой
   resetValidation() {
-    this._toggleButtonState();
+    this.toggleButtonState();
 
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);

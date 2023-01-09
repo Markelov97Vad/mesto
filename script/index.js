@@ -54,70 +54,87 @@ const buttonCloseList = document.querySelectorAll('.popup__close-button');
 
 // initialCards.forEach( elem => { addCard(elem) });
 
-
+// выражение которое отрисовывает карточку на странице
 const cardsList =  new Section({
   item: initialCards,
+  //       готовая карточка
   renderer: (elemCard) => {
-    // const card = new Card (elemCard, "#cardTemplate");
-    // const cardElem = card.generateCard();
-
+    //   добавляем готовую карточку
     cardsList.addItem(createCard(elemCard));
   }
   },
   '.elements'
 );
 
+// метод добавление карточки на страницу
 cardsList.renderItems();
 
-function createCard (data) {
+// функция создания карточкий
+function createCard (dataCard) {
   const card = new Card ({
-    data: data,
+    // link и  name
+    dataCard: dataCard,
+    // заготовка карточки
     templateSelector: "#cardTemplate",
+    // инструкция открытия попапа с картинкой
     handleCardClick : (link, name) => {
       popupImage.open(link, name)
     }
   })
+  //              метод генерации карточки
   const cardElement = card.generateCard();
   return cardElement;
 };
 
 // попап с картинокой
 const popupImage = new PopupWithImage('.popup_theme_figure');
-
+// устанавливаем слушатели для этого попапа, которые унаследованы от Popup
 popupImage.setEventListeners();
 
-// ПОЛЬЗОВАТЕЛЬ
 
+
+
+
+
+
+
+
+// ПОЛЬЗОВАТЕЛЬ
+// информация о пользователе
 const userData = new UserInfo({
   username: '.profile__title',
   info: '.profile__subtitle'
 });
 
-
 // попап формы ред профиль ✅
 
 const popupFormCreatePrifile = new PopupWithForm({
   selector: ".popup_theme_edit",
+  //                данные инпута
   handleFormSubmit: (formData) => {
+    // допавить данные с инпутов
     userData.setUserInfo(formData);
+
     popupFormCreatePrifile.close()
   }
 });
 
+// добавили слушатель сабмита, унаследовали слушатель открыть попап(клик, esc)
 popupFormCreatePrifile.setEventListeners();
 
-
-function dataFormForInput ({username, info}) {
-  nameInput.value = username;
-  jobInput.value = info;
+// функция для добавления информации с профиля в попап (Ред. профиль)
+function dataInputForForm({inputUsername, inputInfo}) {
+  nameInput.value = inputUsername;
+  jobInput.value = inputInfo;
 }
 
-
+// слушатель кнопки (Ред. профиль)
 popupEditButtonElem.addEventListener('click', () => {
-  const inform = userData.getUserInfo();
-  dataFormForInput({
-    username: inform.username,
-    info: inform.info
+  const receivedData = userData.getUserInfo();
+  // заносим данные в инпуты
+  dataInputForForm({
+    inputUsername: receivedData.username,
+    inputInfo: receivedData.info
   });
   popupFormCreatePrifile.open();
 }
@@ -136,6 +153,7 @@ const popupFormNewCard = new PopupWithForm({
 popupFormNewCard.setEventListeners();
 
 addCardButtonElem.addEventListener('click', () => {
+  formNewCardValidator.toggleButtonState()
   popupFormNewCard.open();
 })
 

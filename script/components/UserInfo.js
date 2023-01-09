@@ -1,3 +1,4 @@
+// класс содержит данные о пользователе
 export default class UserInfo {
   constructor({username, info}){
     this._username = document.querySelector(username);
@@ -11,8 +12,9 @@ export default class UserInfo {
     }
     return dataUser;
   }
-// принимает новые данные пользователя и добавляет их на страницу.
+// получить даныые с инпутов
   setUserInfo(data) {
+    //                            <name='username'>
     this._username.textContent = data.username;
     this._info.textContent = data.info;
   }
