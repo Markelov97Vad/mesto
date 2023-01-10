@@ -7,19 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Проект Место от Яндекс.Практикум">
   <meta name="author" content="Маркелов Вадим">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Проект:Mesto</title>
 </head>
 
 <body class="root">
   <header class="header root__header">
-    <img class="header__logo" src="./images/logo-mesto.svg" alt="Логотип: Место">
+    <img class="header__logo" src="<%=require('./images/logo-mesto.svg')%>" alt="Логотип: Место">
   </header>
 
   <main class="content">
     <section class="profile content__profile">
       <div class="profile__card">
-        <img class="profile__avatar" src="./images/jak-iv.png" alt="аватарка">
+        <img class="profile__avatar" src="<%=require('./images/jak-iv.png')%>" alt="аватарка">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button type="button" class="profile__edit-button" aria-label="edit profile"></button>
@@ -83,7 +82,6 @@
     </div>
   </div>
 
-
   <template id="cardTemplate">
     <article class="element">
       <button class="element__delete-button" type="button" aria-label="delete card"></button>
@@ -94,10 +92,5 @@
       </div>
     </article>
   </template>
-
-
-  <script type="module" src="./script/index.js"></script>
-
 </body>
-
 </html>

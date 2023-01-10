@@ -1,28 +1,35 @@
-// карточки
+const muKanImage =  new URL('../../images/image-card-muKan.jpeg', import.meta.url);
+const baganaImage = new URL('../../images/image-card-bagana.jpeg', import.meta.url);
+const chanieDanImage = new URL('../../images/image-card-chanieDan.jpeg', import.meta.url);
+const vaadhuImage = new URL('../../images/image-card-vaadhu.jpeg', import.meta.url);
+const tynziImage = new URL('../../images/image-card-tynzi.jpg', import.meta.url);
+const machuPichuImage = new URL('../../images/image-card-machuPichu.jpeg', import.meta.url);
+
+
 const initialCards = [
   {
     name: 'Му Кан Чай',
-    link: './images/image-card1.jpeg'
+    link: muKanImage
   },
   {
     name: 'Багана',
-    link: './images/image-card.jpeg'
+    link: baganaImage
   },
   {
     name: 'Чжанъе Данксиа',
-    link: './images/image-card3.jpeg'
+    link: chanieDanImage
   },
   {
     name: 'Ваадху',
-    link: './images/image-card4.jpeg'
+    link: vaadhuImage
   },
   {
     name: 'Тяньцзы',
-    link: './images/image-card5.jpg'
+    link: tynziImage
   },
   {
     name: 'Мачу-Пикчу',
-    link: './images/image-card6.jpeg'
+    link: machuPichuImage
   }
 ];
 

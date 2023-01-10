@@ -1,10 +1,11 @@
-import { initialCards, objectSelectors, popupEditButtonElem, popupEditProfile, nameInput, jobInput, popupNewCard, addCardButtonElem } from "./constants.js"
-import FormValidator from "./components/FormValidator.js";
-import Card from "./components/Card.js";
-import Section from "./components/Section.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import UserInfo from "./components/UserInfo.js";
+import './index.css';
+import { initialCards, objectSelectors, popupEditButtonElem, popupEditProfile, nameInput, jobInput, popupNewCard, addCardButtonElem } from "../utils/constants.js"
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
 // выражение которое отрисовывает карточку на странице
 const cardsList =  new Section({
